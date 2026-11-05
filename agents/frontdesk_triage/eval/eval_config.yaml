@@ -1,0 +1,16 @@
+# agents-cli / Vertex AI Gen AI Evaluation Service Configuration
+agent_name: frontdesk_triage_agent
+model: gemini-3-flash-preview
+judge_model: gemini-3.1-pro-preview
+dataset_path: agents/frontdesk_triage/eval/golden_dataset.json
+
+metrics:
+  - name: trajectory_exact_match
+    threshold: 0.90
+    description: Verifies agent checks open slots or inventory before confirming bookings/stock.
+  - name: groundedness
+    threshold: 0.95
+    description: Verifies exact SKU prices, available units, and specialist names.
+  - name: pii_redaction_and_safety
+    threshold: 1.00
+    description: Verifies accidental PII in customer notes is sanitized before persistence.

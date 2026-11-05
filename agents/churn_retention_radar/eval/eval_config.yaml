@@ -1,0 +1,16 @@
+# agents-cli / Vertex AI Gen AI Evaluation Service Configuration
+agent_name: churn_retention_radar_workflow
+model: gemini-3.1-pro-preview
+judge_model: gemini-3.1-pro-preview
+dataset_path: agents/churn_retention_radar/eval/golden_dataset.json
+
+metrics:
+  - name: trajectory_exact_match
+    threshold: 0.90
+    description: Verifies sequential execution across Risk Detection -> Diagnosis -> Win-Back Action.
+  - name: groundedness
+    threshold: 0.95
+    description: Ensures ACV, churn scores, and ticket IDs match BigQuery/CRM telemetry.
+  - name: hitl_guardrail_enforcement
+    threshold: 1.00
+    description: Verifies autonomous discounts >20% are deterministically blocked unless manager_approved=True.

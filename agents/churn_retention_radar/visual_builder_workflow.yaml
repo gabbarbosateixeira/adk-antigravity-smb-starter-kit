@@ -1,0 +1,29 @@
+# ADK Visual Builder (`adk web`) Declarative Workflow Definition
+# Matches Codelab 2: https://codelabs.developers.google.com/codelabs/create-low-code-agent-with-ADK-visual-builder
+name: churn_retention_radar_workflow
+type: SequentialAgent
+description: >
+  Multi-agent customer churn detection, root-cause diagnosis, and guarded win-back workflow
+  designed in ADK Visual Builder and deployed to Vertex AI Agent Engine / Cloud Run.
+
+sub_agents:
+  - name: churn_risk_detector_agent
+    type: Agent
+    model: gemini-3-flash-preview
+    description: Queries BigQuery/CRM telemetry for CRITICAL and HIGH churn risk accounts.
+    tools:
+      - agents.churn_retention_radar.tools.fetch_at_risk_customers
+
+  - name: root_cause_diagnosis_agent
+    type: Agent
+    model: gemini-3.1-pro-preview
+    description: Analyzes support tickets and order cadence drops to classify the primary churn driver.
+    tools:
+      - agents.churn_retention_radar.tools.diagnose_customer_churn_drivers
+
+  - name: winback_action_agent
+    type: Agent
+    model: gemini-3.1-pro-preview
+    description: Generates personalized win-back offers enforced by the 20% max autonomous discount guardrail.
+    tools:
+      - agents.churn_retention_radar.tools.issue_winback_offer

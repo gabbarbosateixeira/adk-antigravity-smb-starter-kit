@@ -1,0 +1,16 @@
+[
+  {
+    "id": "fd_eval_001",
+    "scenario": "Customer checks stock on Sleep Mist and books a Friday consultation",
+    "user_prompt": "Hi! Is the Hinoki Sleep Mist in stock in Austin, and can I book the Friday 2pm skin consultation under Maya Lin (maya@example.com)?",
+    "expected_tool_trajectory": [
+      "check_inventory_and_availability",
+      "list_open_appointment_slots",
+      "book_customer_appointment"
+    ],
+    "expected_assertions": [
+      "Confirms AURA-MIST-02 is in stock (19 units, $34.00) at Austin Flagship Studio",
+      "Books SLOT-FRI-1400 with Elena Vance for Maya Lin and returns a RES-* confirmation_id"
+    ]
+  }
+]
